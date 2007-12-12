@@ -14,13 +14,22 @@
 	$.fn.example = function(text, args) {
 	
 		var main_options = $.extend({}, $.fn.example.defaults, args);
-	
+		
 		return this.each(function() {
-			$this = $(this);
-			
+			var $this = $(this);
+
 			/* Support the Metadata plugin. */
 			var options = $.meta ? $.extend({}, main_options, $this.data()) : main_options;
-					
+			
+			/* Clear fields that are still examples before the form is submitted
+			 * otherwise those examples will be sent along as well.
+			 */
+			$this.parents('form').submit(function() {
+				if ($this.hasClass(options.class_name)) {
+					$this.val('');
+				}
+			});
+			
 			/* Initially place the example text in the field. */
 			$this.val(text);
 			$this.addClass(options.class_name);

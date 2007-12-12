@@ -4,8 +4,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Orders</title>
-	<script type="text/javascript" src="jquery-1.2.1.min.js" charset="utf-8"></script>
-	<script type="text/javascript" src="jquery.example.js" charset="utf-8"></script>
+	<script type="text/javascript" src="jquery-1.2.1.pack.js" charset="utf-8"></script>
+	<!-- <script type="text/javascript" src="jquery.example.js" charset="utf-8"></script> -->
+	<script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script>
 	<style type="text/css">
 		.example {
 			color: #666;
@@ -31,7 +32,7 @@
 	</script>
 </head>
 <body>
-<form>
+<form action="javascript:alert('submitted!');">
 <p>
 	<label for="first_name">First name</label><br />
 	<input id="first_name" name="first_name" type="text" /><br />
@@ -48,6 +49,7 @@
 	<input type="text" class="multiple" />
 	<input type="text" class="multiple" />
 </p>
+<p><input type="submit" /></p>
 </form>
 </body>
 </html>
