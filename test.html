@@ -28,6 +28,7 @@
 				class_name: 'not_example'
 			});
 			$('.multiple').example('Several at once.');
+			$('#prefilled').example('This should not appear on page load.');
 		});
 	</script>
 </head>
@@ -48,6 +49,9 @@
 	<input type="text" class="multiple" />
 	<input type="text" class="multiple" />
 	<input type="text" class="multiple" />
+</p>
+<p>
+	<input id="prefilled" type="text" value="I already have a value" />
 </p>
 <p><input type="submit" /></p>
 </form>
