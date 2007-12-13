@@ -5,9 +5,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Orders</title>
 	<script type="text/javascript" src="jquery-1.2.1.pack.js" charset="utf-8"></script>
-	<!-- <script type="text/javascript" src="jquery.example.js" charset="utf-8"></script> -->
-	<script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="jquery.example.js" charset="utf-8"></script>
+	<!-- <script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script> -->
 	<style type="text/css">
+		html {
+			font: small Helvetica;
+		}
 		.example {
 			color: #666;
 		}
@@ -20,9 +23,12 @@
 			$('#first_name').example('Christian name', {
 				remove_label: true
 			});
-			
 			$('#description').example('Boys 4pk Sports', {
 				remove_label: true
+			});
+			$('#comments').example('First!', {
+				remove_label: false,
+				class_name: 'not_example'
 			});
 			$('#content').example('Type here...', {
 				class_name: 'not_example'
@@ -40,6 +46,10 @@
 </p>
 <p>
 	<label for="description">Description</label><input id="description" name="description" type="text" />
+</p>
+<p>
+	<label for="comments">Comments (this shouldn't be removed)</label><br />
+	<textarea id="comments" name="comments"></textarea>
 </p>
 <p>
 	<textarea id="content"></textarea>
