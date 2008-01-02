@@ -32,8 +32,8 @@
 			
 			/* Initially place the example text in the field if it is empty. */
 			if ($this.val() == '') {
-				$this.val(text);
 				$this.addClass(options.class_name);
+				$this.val(text);
 			}
 		
 			/* If the option is set, remove the associated label (and its line-break if it has one). */
@@ -58,8 +58,8 @@
 			/* Make the example text reappear if the input is blank on blurring. */
 			$this.blur(function() {
 				if ($(this).val() == '') {
-					$(this).val(text);
 					$(this).addClass(options.class_name);
+					$(this).val(text);
 				}
 			});
 		});
