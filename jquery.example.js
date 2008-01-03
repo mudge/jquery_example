@@ -3,16 +3,17 @@
  *
  * e.g.
  *  $('input#name').example('Type your message here', {
- *		class_name: 'example_text', 
- *		remove_label: true 
+ *		class_name: 'example_text',
+ *		hide_label: true
  *	});
  *
- * Copyright (c) Paul Mucur, 2007.
+ * Copyright (c) Paul Mucur (http://mucur.name), 2007-2008.
  */
 (function($) {
 	
 	$.fn.example = function(text, args) {
-	
+		
+		/* Load the default options. */
 		var main_options = $.extend({}, $.fn.example.defaults, args);
 		
 		return this.each(function() {
@@ -36,9 +37,11 @@
 				$this.val(text);
 			}
 		
-			/* If the option is set, remove the associated label (and its line-break if it has one). */
-			if (options.remove_label) {
-				$('label[@for=' + $this.attr('id') + ']').next('br').andSelf().remove();
+			/* If the option is set, hide the associated label (and its line-break if it 
+				* has one).
+				*/
+			if (options.hide_label) {
+				$('label[@for=' + $this.attr('id') + ']').next('br').andSelf().hide();
 			}
 		
 			/* Make the example text disappear when someone focuses.
@@ -67,7 +70,7 @@
 
 	$.fn.example.defaults = {
 		class_name: 'example',
-		remove_label: false
+		hide_label: false
 	};
 	
 })(jQuery);

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>jQuery Example Plugin</title>
+	<style type="text/css">
+		html {
+			font: small Helvetica;
+		}
+		body {
+		    margin: 20px;
+		}
+		.example {
+			color: #666;
+		}
+		.not_example {
+			color: #f99;
+		}
+		.case {
+		    margin-bottom: 10px;
+		    border: 1px solid #999;
+		    padding: 0 10px;
+		}
+		pre {
+		    border: 1px solid #999;
+		    background: #efefef;
+		    padding: 5px;
+		}
+	</style>
+</head>
+<body>
+    <h1>jQuery Example Plugin</h1>
+    <p>This is both a test and usage guide for <a href="http://mucur.name/">Paul Mucur</a>'s <a href="http://mucur.name/posts/jquery_example">jQuery Example plugin</a>. Below you will find several test cases and the relevant JavaScript source code used in the test.</p>
+    <form action="javascript:alert('Form submitted, all examples should be cleared.');">
+        <div class="case">
+            <p>The following field should contain the example text "Simple example".</p>
+            <p><input id="simple" type="text" /></p>
+<pre><code>
+$('#simple').example('Simple example');
+</code></pre>
+        </div>
+        <div class="case">
+        <p>The following field should contain the example text "Christian name" and the label and line-break before it should be hidden.</p>
+        <p>
+        	<label for="first_name">First name</label><br />
+        	<input id="first_name" name="first_name" type="text" /><br />
+        </p>
+<pre><code>
+$('#first_name').example('Christian name', {
+	hide_label: true
+});
+</code></pre>
+        </div>
+        <div class="case">
+        <p>The following field should contain the example text "Boys 4pk Sports" and have no label and line-break preceding it despite setting "hide_label" to true (there wasn't anything to hide).</p>
+        <p>
+            <label for="description">Description</label><input id="description" name="description" type="text" />
+        </p>
+<pre><code>
+$('#description').example('Boys 4pk Sports', {
+	hide_label: true
+});
+</pre></code>
+        </div>
+        <div class="case">
+        <p>The following field should contain the example text "First!" in pink text and it should have a label and line-break before it reading "Comments".</p>
+        <p>
+        	<label for="comments">Comments</label><br />
+        	<textarea id="comments" name="comments"></textarea>
+        </p>
+<pre><code>
+$('#comments').example('First!', {
+	hide_label: false,
+	class_name: 'not_example'
+});
+</pre></code>
+        </div>
+        <div class="case">
+        <p>The following field should contain the example text "Type here..." in pink text.</p>
+        <p>
+        	<textarea id="content"></textarea>
+        </p>
+<pre><code>
+$('#content').example('Type here...', {
+	class_name: 'not_example'
+});
+</pre></code>
+        </div>
+        <div class="case">
+        <p>The following fields should all contain the same example text of "Several at once."</p>
+        <p>
+        	<input type="text" class="multiple" />
+        	<input type="text" class="multiple" />
+        	<input type="text" class="multiple" />
+        	<input type="text" class="multiple" />
+        </p>
+<pre><code>
+$('.multiple').example('Several at once.');
+</code></pre>
+        </div>
+        <div class="case">
+        <p>The following field should have a value of "I already have a value" on page load but once cleared should have the example text of "This should not appear on page load."</p>
+        <p>
+        	<input id="prefilled" type="text" value="I already have a value" />
+        </p>
+<pre><code>
+$('#prefilled').example('This should not appear on page load.');
+</pre></code>
+        </div>
+        <div class="case">
+        <p>Clicking the following submit button should clear all example text but leave real values (if this was a real form, you do not want the examples to be sent with the form).</p>
+        <p><input type="submit" /></p>
+        </div>
+    </form>
+    <script type="text/javascript" src="jquery-1.2.1.pack.js" charset="utf-8"></script>
+	<script type="text/javascript" src="jquery.example.js" charset="utf-8"></script>
+	<!-- <script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script> -->
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+		    $('#simple').example('Simple example');
+			$('#first_name').example('Christian name', {
+				hide_label: true
+			});
+			$('#description').example('Boys 4pk Sports', {
+				hide_label: true
+			});
+			$('#comments').example('First!', {
+				hide_label: false,
+				class_name: 'not_example'
+			});
+			$('#content').example('Type here...', {
+				class_name: 'not_example'
+			});
+			$('.multiple').example('Several at once.');
+			$('#prefilled').example('This should not appear on page load.');
+		});
+	</script>
+</body>
+</html>
