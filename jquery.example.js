@@ -1,6 +1,6 @@
 /*
  * jQuery Example Plugin 1.0.1
- * Adds example text that disappears on focus to form inputs.
+ * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
  *  $('input#name').example('Bob Smith');
