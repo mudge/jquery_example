@@ -1,13 +1,16 @@
 /*
- * Adds example text to form inputs that disappear once data is entered.
+ * jQuery Example Plugin 1.0.1
+ * Adds example text that disappears on focus to form inputs.
  *
  * e.g.
- *  $('input#name').example('Type your message here', {
+ *  $('input#name').example('Bob Smith');
+ *  $('textarea#message').example('Type your message here', {
  *		class_name: 'example_text',
  *		hide_label: true
  *	});
  *
  * Copyright (c) Paul Mucur (http://mucur.name), 2007-2008.
+ * Licensed under the BSD License (LICENSE.txt).
  */
 (function($) {
 	
