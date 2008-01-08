@@ -1,5 +1,5 @@
 /*
- * jQuery Example Plugin 1.0.1
+ * jQuery Example Plugin 1.1
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -15,25 +15,45 @@
 (function($) {
 	
 	$.fn.example = function(text, args) {
-		
-		/* Load the default options. */
-		var main_options = $.extend({}, $.fn.example.defaults, args);
-		
-		return this.each(function() {
-			var $this = $(this);
 
-			/* Support the Metadata plugin. */
-			var options = $.meta ? $.extend({}, main_options, $this.data()) : main_options;
+		/* Load the default options. */
+		var options = $.extend({}, $.fn.example.defaults, args);
+		
+		/* The following event handlers only need to be bound once
+		 * per class name. In order to do this, an array of used
+		 * class names is stored in the document body and is checked
+		 * on each use of the plugin. If the class name is in the
+		 * array then this whole section is skipped. If not, the
+		 * events are bound and the class name added to the array.
+		 */
+		var bound_class_names = $.data(document.body, 'example') || [];
+		
+		if ($.inArray(options.class_name, bound_class_names) == -1) {
+			
+			/* Because Gecko-based browsers "helpfully" cache form values
+			 * but ignore all other attributes such as class, all example
+			 * values must be cleared on page unload to prevent them from
+			 * being saved.
+			 */
+			$(window).unload(function() {
+				$('.' + options.class_name).val('');
+			});
 			
 			/* Clear fields that are still examples before the form is submitted
 			 * otherwise those examples will be sent along as well.
 			 */
-			$this.parents('form').submit(function() {
-				if ($this.hasClass(options.class_name)) {
-					$this.val('');
-				}
+			$(this).parents('form:first').submit(function() {
+				$('.' + options.class_name).val('');
 			});
 			
+			/* Add the class name to the array. */
+			bound_class_names.push(options.class_name);
+			$.data(document.body, 'example', bound_class_names);
+		}
+		
+		return this.each(function() {
+			var $this = $(this);
+
 			/* Initially place the example text in the field if it is empty. */
 			if ($this.val() == '') {
 				$this.addClass(options.class_name);
