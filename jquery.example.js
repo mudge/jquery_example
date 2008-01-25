@@ -90,7 +90,12 @@
 			});
 		});
 	};
-
+  
+  /* Users can override the defaults for the plugin like so:
+   *
+   *   $.fn.example.defaults.class_name = 'not_example';
+   *   $.fn.example.defaults.hide_label = true;
+   */
 	$.fn.example.defaults = {
 		class_name: 'example',
 		hide_label: false

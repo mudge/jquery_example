@@ -36,32 +36,26 @@
         <div class="case">
             <p>The following field should contain the example text "Simple example".</p>
             <p><input id="simple" type="text" /></p>
-<pre><code>
-$('#simple').example('Simple example');
-</code></pre>
+<pre><code>$('#simple').example('Simple example');</code></pre>
         </div>
         <div class="case">
-        <p>The following field should contain the example text "Christian name" and the label and line-break before it should be hidden.</p>
+        <p>The following field should contain the example text "Forename" and the label and line-break before it should be hidden.</p>
         <p>
         	<label for="first_name">First name</label><br />
         	<input id="first_name" name="first_name" type="text" /><br />
         </p>
-<pre><code>
-$('#first_name').example('Christian name', {
+<pre><code>$('#first_name').example('Forename', {
 	hide_label: true
-});
-</code></pre>
+});</code></pre>
         </div>
         <div class="case">
         <p>The following field should contain the example text "Boys 4pk Sports" and have no label and line-break preceding it despite setting "hide_label" to true (there wasn't anything to hide).</p>
         <p>
             <label for="description">Description</label><input id="description" name="description" type="text" />
         </p>
-<pre><code>
-$('#description').example('Boys 4pk Sports', {
+<pre><code>$('#description').example('Boys 4pk Sports', {
 	hide_label: true
-});
-</pre></code>
+});</pre></code>
         </div>
         <div class="case">
         <p>The following field should contain the example text "First!" in pink text and it should have a label and line-break before it reading "Comments".</p>
@@ -69,23 +63,19 @@ $('#description').example('Boys 4pk Sports', {
         	<label for="comments">Comments</label><br />
         	<textarea id="comments" name="comments"></textarea>
         </p>
-<pre><code>
-$('#comments').example('First!', {
+<pre><code>$('#comments').example('First!', {
 	hide_label: false,
 	class_name: 'not_example'
-});
-</pre></code>
+});</pre></code>
         </div>
         <div class="case">
         <p>The following field should contain the example text "Type here..." in pink text.</p>
         <p>
         	<textarea id="content"></textarea>
         </p>
-<pre><code>
-$('#content').example('Type here...', {
+<pre><code>$('#content').example('Type here...', {
 	class_name: 'not_example'
-});
-</pre></code>
+});</pre></code>
         </div>
         <div class="case">
         <p>The following fields should all contain the same example text of "Several at once."</p>
@@ -95,31 +85,41 @@ $('#content').example('Type here...', {
         	<input type="text" class="multiple" />
         	<input type="text" class="multiple" />
         </p>
-<pre><code>
-$('.multiple').example('Several at once.');
-</code></pre>
+<pre><code>$('.multiple').example('Several at once.');</code></pre>
         </div>
         <div class="case">
         <p>The following field should have a value of "I already have a value" on page load but once cleared should have the example text of "This should not appear on page load."</p>
         <p>
         	<input id="prefilled" type="text" value="I already have a value" />
         </p>
-<pre><code>
-$('#prefilled').example('This should not appear on page load.');
-</pre></code>
+<pre><code>$('#prefilled').example('This should not appear on page load.');</pre></code>
         </div>
+        <div class="case">
+        <p>The following three fields should have values of "Not example by default" in pink text as they are all styled with the CSS class name "not_example" by changing the plugin defaults.</p>
+        <p>
+        	<input id="defaults_test_1" type="text" />
+        	<input id="defaults_test_2" type="text" />
+        	<input id="defaults_test_3" type="text" />
+        </p>
+<pre><code>$.fn.example.defaults.class_name = 'not_example';
+$('#defaults_test_1').example('Not example by default');
+$('#defaults_test_2').example('Not example by default');
+$('#defaults_test_3').example('Not example by default');</pre></code>
+        </div>
+        
         <div class="case">
         <p>Clicking the following submit button should clear all example text but leave real values (if this was a real form, you do not want the examples to be sent with the form).</p>
         <p><input type="submit" /></p>
         </div>
     </form>
-    <script type="text/javascript" src="jquery-1.2.1.pack.js" charset="utf-8"></script>
+    <script type="text/javascript" src="jquery-1.2.2.pack.js" charset="utf-8"></script>
 	<script type="text/javascript" src="jquery.example.js" charset="utf-8"></script>
 	<!-- <script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script> -->
 	<script type="text/javascript" charset="utf-8">
 		$(function() {
-		    $('#simple').example('Simple example');
-			$('#first_name').example('Christian name', {
+		  
+		  $('#simple').example('Simple example');
+			$('#first_name').example('Forename', {
 				hide_label: true
 			});
 			$('#description').example('Boys 4pk Sports', {
@@ -134,6 +134,11 @@ $('#prefilled').example('This should not appear on page load.');
 			});
 			$('.multiple').example('Several at once.');
 			$('#prefilled').example('This should not appear on page load.');
+			
+			$.fn.example.defaults.class_name = 'not_example';
+			$('#defaults_test_1').example('Not example by default');
+			$('#defaults_test_2').example('Not example by default');
+			$('#defaults_test_3').example('Not example by default');
 		});
 	</script>
 </body>
