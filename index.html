@@ -50,7 +50,7 @@
             <p>The following field should contain the example text "Taken from the title and pink" in pink as it uses both a callback and the <code>class_name</code> option.</p>
             <p><input type="text" id="callback_with_custom_class" title="Taken from the title" /></p>
             <pre><code>$('#callback_with_custom_class').example(function() {
-    return $(this).attr('title');
+  return $(this).attr('title');
 }, {class_name: 'not_example'});</code></pre>
             </p>
         </div>
@@ -130,6 +130,16 @@
         </div>
         
         <div class="case">
+            <p>The following field should contain the example text "This is one thing" taken from its <code>title</code> attribute but after focusing on it once, the example should change to "Not anymore".</p>
+            <p><input id="modifying_callback" title="This is one thing" type="text" /></p>
+            <pre><code>$('#modifying_callback').example(function() {
+  var text = $(this).attr('title');
+  $(this).attr('title', 'Not anymore');
+  return text;
+});</code></pre>
+        </div>
+        
+        <div class="case">
         <p>The following three fields should have values of "Not example by default" in pink text as they are all styled with the CSS class name "not_example" by changing the plugin defaults.</p>
         <p>
         	<input id="defaults_test_1" type="text" />
@@ -160,6 +170,11 @@ $('#defaults_test_3').example('Not example by default');</code></pre>
 	<!-- <script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script> -->
 	<script type="text/javascript" charset="utf-8">
 		$(function() {
+		  $('#modifying_callback').example(function() {
+		    var text = $(this).attr('title');
+		    $(this).attr('title', 'Not anymore');
+		    return text;
+		  });
 		  $('#callback').example(function() {
 		     return $(this).attr('title'); 
 		  });

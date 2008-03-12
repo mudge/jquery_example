@@ -1,5 +1,5 @@
 /*
- * jQuery Example Plugin 1.3
+ * jQuery Example Plugin 1.3.1
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -75,17 +75,14 @@
     return this.each(function() {
       var $this = $(this);
       
-      /* The text can be either a string or an anonymous function. */
-      if ($.isFunction(text)) {
-        var example_text = text.call(this);
-      } else {
-        var example_text = text;
-      }
-      
       /* Initially place the example text in the field if it is empty. */
       if ($this.val() == '') {
         $this.addClass(options.class_name);
-        $this.val(example_text);
+        
+        /* The text argument can now be a function; if this is the case,
+         * call it, passing the current jQuery object as `this`.
+         */
+        $this.val($.isFunction(text) ? text.call(this) : text);
       }
     
       /* If the option is set, hide the associated label (and its line-break
@@ -115,7 +112,13 @@
       $this.blur(function() {
         if ($(this).val() == '') {
           $(this).addClass(options.class_name);
-          $(this).val(example_text);
+          
+          /* Re-evaluate the callback function every time the user
+           * blurs the field without entering anything. While this
+           * is not as efficient as caching the value, it allows for
+           * more dynamic applications of the plugin.
+           */
+          $(this).val($.isFunction(text) ? text.call(this) : text);
         }
       });
     });
@@ -131,6 +134,7 @@
     hide_label: false
   };
   
+  /* All the class names used are stored in the following array. */
   $.fn.example.bound_class_names = [];
   
 })(jQuery);

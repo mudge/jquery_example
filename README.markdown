@@ -39,6 +39,14 @@ As well as supplying the example text via a string, a callback function can be u
     
 The above example will set the example text to the `title` attribute of the input. The callback is executed within the context of the input field so, as in the example above, `$(this)` will return the input itself.
 
+It is worth noting that the callback is evaluated every time the example text needs to be inserted and *is not cached*. This makes it possible to dynamically change the example text of a field after page load like so:
+
+    $('input#name').example(function() {
+        var text = $(this).attr('title');
+        $(this).attr('title', 'Not the original title anymore');
+        return text;
+    });
+
 For more usage examples (and something of a test suite), please see index.html.
 
 Compatibility
