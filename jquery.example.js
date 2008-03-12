@@ -1,16 +1,20 @@
 /*
- * jQuery Example Plugin 1.2.1
+ * jQuery Example Plugin 1.3
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
  *  $('input#name').example('Bob Smith');
+ *  $('input[@title]').example(function() {
+ *    return $(this).attr('title');
+ *  });
  *  $('textarea#message').example('Type your message here', {
  *    class_name: 'example_text',
  *    hide_label: true
  *  });
  *
  * Copyright (c) Paul Mucur (http://mucur.name), 2007-2008.
- * Dual-licensed under the BSD and GPL Licenses (LICENSE.txt).
+ * Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL License
+ * (GPL-LICENSE.txt).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +35,14 @@
     
     /* The following event handlers only need to be bound once
      * per class name. In order to do this, an array of used
-     * class names is stored in the document body and is checked
-     * on each use of the plugin. If the class name is in the
-     * array then this whole section is skipped. If not, the
-     * events are bound and the class name added to the array.
+     * class names is stored and checked on each use of the plugin. 
+     * If the class name is in the array then this whole section 
+     * is skipped. If not, the events are bound and the class name 
+     * added to the array.
      */
     var bound_class_names = $.fn.example.bound_class_names;
     
+    /* If the class name is *not* in the array. */
     if ($.inArray(options.class_name, bound_class_names) == -1) {
       
       /* Because Gecko-based browsers "helpfully" cache form values
@@ -49,11 +54,17 @@
         $('.' + options.class_name).val('');
       });
       
-      /* Clear fields that are still examples before the form is submitted
+      /* Clear fields that are still examples before any form is submitted
        * otherwise those examples will be sent along as well.
+       * 
+       * Previous to 1.3, this would only be bound to forms that were
+       * parents of example fields but this meant that a page with
+       * multiple forms would not work correctly.
        */
-      $(this).parents('form:first').submit(function() {
-        $('.' + options.class_name).val('');
+      $('form').submit(function() {
+        
+        /* Clear only the fields inside this particular form. */
+        $(this).find('.' + options.class_name).val('');
       });
       
       /* Add the class name to the array. */
@@ -63,15 +74,22 @@
     
     return this.each(function() {
       var $this = $(this);
-
+      
+      /* The text can be either a string or an anonymous function. */
+      if ($.isFunction(text)) {
+        var example_text = text.call(this);
+      } else {
+        var example_text = text;
+      }
+      
       /* Initially place the example text in the field if it is empty. */
       if ($this.val() == '') {
         $this.addClass(options.class_name);
-        $this.val(text);
+        $this.val(example_text);
       }
     
-      /* If the option is set, hide the associated label (and its line-break if it 
-        * has one).
+      /* If the option is set, hide the associated label (and its line-break
+        * if it has one).
         */
       if (options.hide_label) {
         var label = $('label[@for=' + $this.attr('id') + ']');
@@ -97,7 +115,7 @@
       $this.blur(function() {
         if ($(this).val() == '') {
           $(this).addClass(options.class_name);
-          $(this).val(text);
+          $(this).val(example_text);
         }
       });
     });

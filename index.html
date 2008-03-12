@@ -39,13 +39,40 @@
 <pre><code>$('#simple').example('Simple example');</code></pre>
         </div>
         <div class="case">
+            <p>The following field should contain the example text "Taken from the title" which is stored in its title attribute and set using a callback.</p>
+            <p><input type="text" id="callback" title="Taken from the title" /></p>
+            <pre><code>$('#callback').example(function() {
+    return $(this).attr('title');
+});</code></pre>
+            </p>
+        </div>
+        <div class="case">
+            <p>The following field should contain the example text "Taken from the title and pink" in pink as it uses both a callback and the <code>class_name</code> option.</p>
+            <p><input type="text" id="callback_with_custom_class" title="Taken from the title" /></p>
+            <pre><code>$('#callback_with_custom_class').example(function() {
+    return $(this).attr('title');
+}, {class_name: 'not_example'});</code></pre>
+            </p>
+        </div>
+        <div class="case">
+            <p>The following fields should all have examples set from their title attribute.</p>
+            <p>
+                <input type="text" class="multiple_callback" title="Title 1" />
+                <input type="text" class="multiple_callback" title="Title 2" />
+                <input type="text" class="multiple_callback" title="Title 3" />
+            </p>
+            <pre><code>$('.multiple_callback').example(function() {
+   return $(this).attr('title'); 
+});</code></pre>
+        </div>
+        <div class="case">
         <p>The following field should contain the example text "Forename" and the label and line-break before it should be hidden.</p>
         <p>
         	<label for="first_name">First name</label><br />
         	<input id="first_name" name="first_name" type="text" /><br />
         </p>
 <pre><code>$('#first_name').example('Forename', {
-	hide_label: true
+    hide_label: true
 });</code></pre>
         </div>
         <div class="case">
@@ -54,7 +81,7 @@
             <label for="description">Description</label><input id="description" name="description" type="text" />
         </p>
 <pre><code>$('#description').example('Boys 4pk Sports', {
-	hide_label: true
+    hide_label: true
 });</code></pre>
         </div>
         <div class="case">
@@ -64,8 +91,8 @@
         	<textarea id="comments" name="comments"></textarea>
         </p>
 <pre><code>$('#comments').example('First!', {
-	hide_label: false,
-	class_name: 'not_example'
+    hide_label: false,
+    class_name: 'not_example'
 });</code></pre>
         </div>
         <div class="case">
@@ -74,7 +101,7 @@
         	<textarea id="content"></textarea>
         </p>
 <pre><code>$('#content').example('Type here...', {
-	class_name: 'not_example'
+    class_name: 'not_example'
 });</code></pre>
         </div>
         <div class="case">
@@ -119,12 +146,30 @@ $('#defaults_test_3').example('Not example by default');</code></pre>
         <p><input type="submit" /></p>
         </div>
     </form>
-    <script type="text/javascript" src="jquery-1.2.3.pack.js" charset="utf-8"></script>
-	<!-- <script type="text/javascript" src="jquery.example.js" charset="utf-8"></script> -->
-	<script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script>
+    <form action="javascript:alert('Second form submitted, all examples within this form only should be cleared.');">
+        <div class="case">
+            <p>This field is inside a separate form and submitting it should only clear the values here, leaving the other form intact.</p>
+            <p><input id="second_form" type="text" /></p>
+            <p><input type="submit" /></p>
+            <pre><code>$('#second_form').example('Only I should be cleared when you click below');</code></pre>
+        </div>
+    </form>
+    <script type="text/javascript" src="jquery-1.1.pack.js" charset="utf-8"></script>
+	<!-- <script type="text/javascript" src="jquery-1.2.3.pack.js" charset="utf-8"></script> -->
+	<script type="text/javascript" src="jquery.example.js" charset="utf-8"></script>
+	<!-- <script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script> -->
 	<script type="text/javascript" charset="utf-8">
 		$(function() {
-		  
+		  $('#callback').example(function() {
+		     return $(this).attr('title'); 
+		  });
+		  $('#callback_with_custom_class').example(function() {
+		     return $(this).attr('title'); 
+		  }, { class_name: 'not_example' });
+		  $('.multiple_callback').example(function() {
+             return $(this).attr('title'); 
+          });
+		  $('#password').example('Test');
 		  $('#simple').example('Simple example');
 			$('#first_name').example('Forename', {
 				hide_label: true
@@ -143,6 +188,8 @@ $('#defaults_test_3').example('Not example by default');</code></pre>
 			$('#prefilled').example('This should not appear on page load.');
 			
 			$('#multiple_class_names').example('Multiple class names');
+
+			$('#second_form').example('Only I should be cleared when you click below');
 			
 			$.fn.example.defaults.class_name = 'not_example';
 			$('#defaults_test_1').example('Not example by default');
