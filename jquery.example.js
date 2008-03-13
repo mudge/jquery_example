@@ -1,5 +1,5 @@
 /*
- * jQuery Example Plugin 1.3.1
+ * jQuery Example Plugin 1.3.2
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -13,8 +13,8 @@
  *  });
  *
  * Copyright (c) Paul Mucur (http://mucur.name), 2007-2008.
- * Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL License
- * (GPL-LICENSE.txt).
+ * Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL (GPL-LICENSE.txt)
+ * licenses.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +30,11 @@
       
   $.fn.example = function(text, args) {
     
-    /* Load the default options. */
+    /* Merge the default options with the given arguments. */
     var options = $.extend({}, $.fn.example.defaults, args);
+    
+    /* Only calculate once whether a callback has been used. */
+    var callback = $.isFunction(text);
     
     /* The following event handlers only need to be bound once
      * per class name. In order to do this, an array of used
@@ -39,11 +42,12 @@
      * If the class name is in the array then this whole section 
      * is skipped. If not, the events are bound and the class name 
      * added to the array.
+     *
+     * As of 1.3.2, the class names are stored as keys in the
+     * array, rather than as elements. This removes the need for
+     * $.inArray().
      */
-    var bound_class_names = $.fn.example.bound_class_names;
-    
-    /* If the class name is *not* in the array. */
-    if ($.inArray(options.class_name, bound_class_names) == -1) {
+    if (!$.fn.example.bound_class_names[options.class_name]) {
       
       /* Because Gecko-based browsers "helpfully" cache form values
        * but ignore all other attributes such as class, all example
@@ -57,7 +61,7 @@
       /* Clear fields that are still examples before any form is submitted
        * otherwise those examples will be sent along as well.
        * 
-       * Previous to 1.3, this would only be bound to forms that were
+       * Prior to 1.3, this would only be bound to forms that were
        * parents of example fields but this meant that a page with
        * multiple forms would not work correctly.
        */
@@ -68,11 +72,12 @@
       });
       
       /* Add the class name to the array. */
-      bound_class_names.push(options.class_name);
-      $.fn.example.bound_class_names = bound_class_names;
+      $.fn.example.bound_class_names[options.class_name] = true;      
     }
     
     return this.each(function() {
+      
+      /* Reduce method calls by saving the current jQuery object. */
       var $this = $(this);
       
       /* Initially place the example text in the field if it is empty. */
@@ -80,16 +85,22 @@
         $this.addClass(options.class_name);
         
         /* The text argument can now be a function; if this is the case,
-         * call it, passing the current jQuery object as `this`.
+         * call it, passing the current element as `this`.
          */
-        $this.val($.isFunction(text) ? text.call(this) : text);
+        $this.val(callback ? text.call(this) : text);
       }
     
-      /* If the option is set, hide the associated label (and its line-break
-        * if it has one).
-        */
+      /* DEPRECATION WARNING: I am considering removing this option.
+       *
+       * If the option is set, hide the associated label (and its line-break
+       * if it has one).
+       */
       if (options.hide_label) {
         var label = $('label[@for=' + $this.attr('id') + ']');
+        
+        /* The label and its line break must be hidden separately as
+         * jQuery 1.1 does not support andSelf().
+         */
         label.next('br').hide();
         label.hide();
       }
@@ -102,6 +113,8 @@
        * input.
        */
       $this.focus(function() {
+        
+        /* jQuery 1.1 has no hasClass(), so is() must be used instead. */
         if ($(this).is('.' + options.class_name)) {
           $(this).val('');
           $(this).removeClass(options.class_name);
@@ -118,7 +131,7 @@
            * is not as efficient as caching the value, it allows for
            * more dynamic applications of the plugin.
            */
-          $(this).val($.isFunction(text) ? text.call(this) : text);
+          $(this).val(callback ? text.call(this) : text);
         }
       });
     });
@@ -131,10 +144,12 @@
    */
   $.fn.example.defaults = {
     class_name: 'example',
+    
+    /* DEPRECATION WARNING: I am considering removing this option. */    
     hide_label: false
   };
   
-  /* All the class names used are stored in the following array. */
+  /* All the class names used are stored as keys in the following array. */
   $.fn.example.bound_class_names = [];
   
 })(jQuery);
