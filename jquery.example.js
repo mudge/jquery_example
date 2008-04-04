@@ -1,5 +1,5 @@
 /*
- * jQuery Example Plugin 1.3.2
+ * jQuery Example Plugin 1.3.3
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -80,6 +80,28 @@
       /* Reduce method calls by saving the current jQuery object. */
       var $this = $(this);
       
+      /* Internet Explorer will cache form values even if they are cleared
+       * on unload, so this will clear any value that matches the example
+       * text and hasn't been specified in the value attribute.
+       *
+       * The trick is to see whether a value has been set that is
+       * different to the defaultValue attribute. As I do not want
+       * to recklessly clear form inputs that are not examples on
+       * document ready, only those with values that match the example
+       * text will be cleared.
+       *
+       * If a callback is used, it is not possible to predict
+       * what the example text is going to be so all non-default values
+       * are cleared. This means that caching is effectively disabled for
+       * that field.
+       *
+       * Many thanks to Klaus Hartl for this technique.
+       */
+      if ($.browser.msie && !$this.attr('defaultValue') &&
+          (callback ? $this.val() != '' : $this.val() == text)) {
+        $this.val('');
+      }
+
       /* Initially place the example text in the field if it is empty. */
       if ($this.val() == '') {
         $this.addClass(options.class_name);

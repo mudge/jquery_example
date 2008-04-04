@@ -1,4 +1,4 @@
-jQuery Form Input Example Plugin 1.3.2
+jQuery Form Input Example Plugin 1.3.3
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
