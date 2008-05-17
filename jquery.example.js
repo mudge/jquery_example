@@ -80,9 +80,7 @@
       /* Reduce method calls by saving the current jQuery object. */
       var $this = $(this);
 
-			/* Create the o Object and update it with the current jQuery item's
-			 * metadata (if it has it), or just use the original args
-			 */
+			/* Check to see if we have metadata that we can use */
       var o = $.metadata ? $.extend({}, options, $this.metadata()) : options;
       
       /* Internet Explorer will cache form values even if they are cleared
