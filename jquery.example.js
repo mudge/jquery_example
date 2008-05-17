@@ -29,9 +29,10 @@
 (function($) {
       
   $.fn.example = function(text, args) {
-    
+    /* Update args with the passed in text to ensure backwards compatibility */
     /* Merge the default options with the given arguments. */
     var options = $.extend({}, $.fn.example.defaults, args);
+		options.example_text = text;
     
     /* Only calculate once whether a callback has been used. */
     var callback = $.isFunction(text);
@@ -76,9 +77,13 @@
     }
     
     return this.each(function() {
-      
       /* Reduce method calls by saving the current jQuery object. */
       var $this = $(this);
+
+			/* Create the o Object and update it with the current jQuery item's
+			 * metadata (if it has it), or just use the original args
+			 */
+      var o = $.metadata ? $.extend({}, options, $this.metadata()) : options;
       
       /* Internet Explorer will cache form values even if they are cleared
        * on unload, so this will clear any value that matches the example
@@ -98,7 +103,7 @@
        * Many thanks to Klaus Hartl for this technique.
        */
       if ($.browser.msie && !$this.attr('defaultValue') &&
-          (callback ? $this.val() != '' : $this.val() == text)) {
+          (callback ? $this.val() != '' : $this.val() == o.example_text)) {
         $this.val('');
       }
 
@@ -109,7 +114,7 @@
         /* The text argument can now be a function; if this is the case,
          * call it, passing the current element as `this`.
          */
-        $this.val(callback ? text.call(this) : text);
+        $this.val(callback ? o.example_text.call(this) : o.example_text);
       }
     
       /* DEPRECATION WARNING: I am considering removing this option.
@@ -153,7 +158,7 @@
            * is not as efficient as caching the value, it allows for
            * more dynamic applications of the plugin.
            */
-          $(this).val(callback ? text.call(this) : text);
+          $(this).val(callback ? o.example_text.call(this) : o.example_text);
         }
       });
     });
@@ -165,7 +170,8 @@
    *   $.fn.example.defaults.hide_label = true;
    */
   $.fn.example.defaults = {
-    class_name: 'example',
+		example_text: '',	
+    class_name: 	'example',
     
     /* DEPRECATION WARNING: I am considering removing this option. */    
     hide_label: false
