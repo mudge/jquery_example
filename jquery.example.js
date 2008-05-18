@@ -1,5 +1,5 @@
 /*
- * jQuery Example Plugin 1.3.3
+ * jQuery Example Plugin 1.3.4
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -27,18 +27,23 @@
  * GNU General Public License for more details.
  */
 (function($) {
-      
+  
   $.fn.example = function(text, args) {
     
-    /* Merge the default options with the given arguments. */
-    var options = $.extend({}, $.fn.example.defaults, args);
+    /* Merge the default options with the given arguments and the given
+     * text with the example_text option.
+     */
+    var options = $.extend({},
+                           $.fn.example.defaults,
+                           args,
+                           {example_text: text});
     
     /* Only calculate once whether a callback has been used. */
-    var callback = $.isFunction(text);
+    var callback = $.isFunction(options.example_text);
     
     /* The following event handlers only need to be bound once
      * per class name. In order to do this, an array of used
-     * class names is stored and checked on each use of the plugin. 
+     * class names is stored and checked on each use of the plugin.
      * If the class name is in the array then this whole section 
      * is skipped. If not, the events are bound and the class name 
      * added to the array.
@@ -72,13 +77,25 @@
       });
       
       /* Add the class name to the array. */
-      $.fn.example.bound_class_names[options.class_name] = true;      
+      $.fn.example.bound_class_names[options.class_name] = true;
     }
     
     return this.each(function() {
       
       /* Reduce method calls by saving the current jQuery object. */
       var $this = $(this);
+      
+      /* As of 1.3.4 and thanks to DeLynn Berry, the Metadata plugin can be
+       * used in conjunction with this plugin. This means that the example
+       * text can be set in the element itself, e.g.
+       *
+       * <input class="{example_text: 'Some text'}" />
+       *
+       * CAVEAT: It is not possible to set the class_name option using
+       * the Metadata plugin as the class name is used before iterating
+       * through each element (which is when the Metadata merging happens).
+       */
+      var o = $.metadata ? $.extend({}, options, $this.metadata()) : options;
       
       /* Internet Explorer will cache form values even if they are cleared
        * on unload, so this will clear any value that matches the example
@@ -98,10 +115,10 @@
        * Many thanks to Klaus Hartl for this technique.
        */
       if ($.browser.msie && !$this.attr('defaultValue') &&
-          (callback ? $this.val() != '' : $this.val() == text)) {
+          (callback ? $this.val() != '' : $this.val() == o.example_text)) {
         $this.val('');
       }
-
+      
       /* Initially place the example text in the field if it is empty. */
       if ($this.val() == '') {
         $this.addClass(options.class_name);
@@ -109,9 +126,9 @@
         /* The text argument can now be a function; if this is the case,
          * call it, passing the current element as `this`.
          */
-        $this.val(callback ? text.call(this) : text);
+        $this.val(callback ? o.example_text.call(this) : o.example_text);
       }
-    
+      
       /* DEPRECATION WARNING: I am considering removing this option.
        *
        * If the option is set, hide the associated label (and its line-break
@@ -126,7 +143,7 @@
         label.next('br').hide();
         label.hide();
       }
-    
+      
       /* Make the example text disappear when someone focuses.
        *
        * To determine whether the value of the field is an example or not,
@@ -153,7 +170,7 @@
            * is not as efficient as caching the value, it allows for
            * more dynamic applications of the plugin.
            */
-          $(this).val(callback ? text.call(this) : text);
+          $(this).val(callback ? o.example_text.call(this) : o.example_text);
         }
       });
     });
@@ -165,6 +182,7 @@
    *   $.fn.example.defaults.hide_label = true;
    */
   $.fn.example.defaults = {
+    example_text: '',
     class_name: 'example',
     
     /* DEPRECATION WARNING: I am considering removing this option. */    

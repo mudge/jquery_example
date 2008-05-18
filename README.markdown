@@ -1,4 +1,4 @@
-jQuery Form Input Example Plugin 1.3.3
+jQuery Form Input Example Plugin 1.3.4
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -60,6 +60,15 @@ dynamically change the example text of a field after page load like so:
         $(this).attr('title', 'Not the original title anymore');
         return text;
     });
+    
+The plugin also supports the jQuery Metadata plugin which allows you to 
+specify metadata in elements themselves. You can specify the example text and
+hide_label options like so:
+
+    <input id="m1" class="{example_text: 'An example', hide_label: true}" />
+
+Please note that you *cannot* set the class_name option using metadata and
+that anything specified using metadata will take precedence.
 
 For more usage examples (and something of a test suite), please see
 index.html.
@@ -78,6 +87,14 @@ This plugin was written by and is maintained by Paul Mucur aka "mudge". Please
 do not hesitate to contact me with comments and bug reports through the
 plugin's official entry on the jQuery Plugins directory:
 http://plugins.jquery.com/project/example
+
+You can view the latest source code (and fork the entire project if you wish)
+at http://github.com/mudge/jquery_example
+
+Contributors
+------------
+
+The code to support the Metadata plugin was contributed by DeLynn Berry (http://github.com/delynn).
 
 Licensing
 ---------

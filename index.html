@@ -7,7 +7,7 @@
   <style type="text/css">html{font:small Helvetica;background:#eee;}body{margin:20px;}.example{color:#666;}.not_example{color:#c6c;}.case{margin-bottom:10px;border:1px solid #999;padding:0 10px;background:#fff;}pre{border:1px solid #996;background:#ffc;padding:5px;}h1,h3,pre,code{font-size:1em;}h1{font-size:1.5em;}input{width:200px;}</style>
 </head>
 <body>
-  <h1>jQuery Form Input Example Plugin 1.3.3</h1>
+  <h1>jQuery Form Input Example Plugin 1.3.4</h1>
   <p>This is both a test and usage guide for the <a href="http://mucur.name/posts/jquery-example">jQuery Form Input Example plugin</a> by <a href="http://mucur.name/">Paul Mucur</a>. Below you will find several test cases and the relevant JavaScript source code used in the test.</p>
   <form action="javascript:alert('Form submitted, all examples should be cleared.');">
     <div class="case">
@@ -185,6 +185,29 @@ $('#defaults_test_1').example('Not example by default');
 $('#defaults_test_2').example('Not example by default');
 $('#defaults_test_3').example('Not example by default');</code></pre>
       </div>
+      
+      <div class="case">
+        <p>The following field should have its example set to "Metadata plugin rules" as defined by using the Metadata plugin.</p>
+        <p>
+          <input id="metadata_1" class="{example_text: 'Metadata plugin rules'}" />
+        </p>
+        <h3>HTML</h3>
+        <pre><code>&lt;input id="metadata_1" class="{example_text: 'Metadata plugin rules'}" /&gt;</code></pre>
+        <h3>JavaScript</h3>
+        <pre><code>$('#metadata_1').example();</code></pre>
+      </div>
+      
+      <div class="case">
+        <p>The following field should have its example set to "Metadata plugin takes precedence" as set with the Metadata plugin despite setting the text in the function call.</p>
+        <p>
+          <input id="metadata_2" class="{example_text: 'Metadata plugin takes precedence'}" />
+        </p>
+        <h3>HTML</h3>
+        <pre><code>&lt;input id="metadata_2" class="{example_text: 'Metadata plugin takes precedence'}" /&gt;</code></pre>
+        <h3>JavaScript</h3>
+        <pre><code>$('#metadata_2').example('This will be overridden by the Metadata');</code></pre>
+      </div>
+      
       <div class="case">
       <p>Clicking the following submit button should clear all example text but leave real values (if this was a real form, you do not want the examples to be sent with the form).</p>
       <p><input type="submit" /></p>
@@ -205,6 +228,7 @@ $('#defaults_test_3').example('Not example by default');</code></pre>
   
   <!-- <script type="text/javascript" src="jquery-1.1.pack.js" charset="utf-8"></script> -->
   <script type="text/javascript" src="jquery-1.2.3.pack.js" charset="utf-8"></script>
+  <script type="text/javascript" src="jquery.metadata.pack.js" charset="utf-8"></script>
   <script type="text/javascript" src="jquery.example.js" charset="utf-8"></script>
   <!-- <script type="text/javascript" src="jquery.example.min.js" charset="utf-8"></script> -->
   <script type="text/javascript" charset="utf-8">
@@ -251,6 +275,9 @@ $('#defaults_test_3').example('Not example by default');</code></pre>
         $(this).attr('title', 'Not anymore');
         return text;
       });
+      
+      $('#metadata_1').example();
+      $('#metadata_2').example('This will be overriden by the Metadata');
       
       $('#second_form').example('Only I should be cleared when you click below');
       
