@@ -81,7 +81,6 @@
     }
     
     return this.each(function() {
-      
       /* Reduce method calls by saving the current jQuery object. */
       var $this = $(this);
       
