@@ -103,8 +103,10 @@
       if ($.browser.msie && !$this.attr('defaultValue') && (isCallback || $this.val() == o.example))
         $this.val('');
       
-      /* Initially place the example text in the field if it is empty. */
-      if ($this.val() == '') {
+      /* Initially place the example text in the field if it is empty
+       * and doesn't have focus yet.
+       */
+      if ($this.val() == '' && this != document.activeElement) {
         $this.addClass(o.className);
         
         /* The text argument can now be a function; if this is the case,
