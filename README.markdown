@@ -1,4 +1,4 @@
-jQuery Form Input Example Plugin 1.3.4
+jQuery Form Example Plugin 1.4
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -19,23 +19,16 @@ it with CSS like so:
     .example { color: #666; }
 
 If this class name conflicts with one you already use, you can override it
-with the `class_name` option like so:
+with the `className` option like so:
 
-    $('input#name').example('Bob Smith', { class_name: 'hint' });
+    $('input#name').example('Bob Smith', { className: 'hint' });
 
 The above example would then be given the class `hint` instead of `example`.
-
-The other option available is `hide_label` which will hide any input's
-associated label (and any line-break following it) when set to `true` (it is
-`false` by default):
-
-    $('input#name').example('Bob Smith', { hide_label: true });
 
 If you plan to use the same options repeatedly, it is possible to override the
 plugin's defaults directly:
 
-    $.fn.example.defaults.class_name = 'not_example';
-    $.fn.example.defaults.hide_label = true;
+    $.fn.example.defaults.className = 'notExample';
 
 This will cause any uses of the plugin after this point to use the new
 defaults.
@@ -65,20 +58,27 @@ The plugin also supports the jQuery Metadata plugin which allows you to
 specify metadata in elements themselves. You can specify the example text and
 hide_label options like so:
 
-    <input id="m1" class="{example_text: 'An example', hide_label: true}" />
+    <input id="m1" class="{example: 'An example', className: 'abc' }" />
 
-Please note that you *cannot* set the class_name option using metadata and
-that anything specified using metadata will take precedence.
+Please note that metadata will be overridden by arguments, e.g.
 
-For more usage examples (and something of a test suite), please see
-index.html.
+    <input id="m1" class="{example: 'An example'}" />
+    $('#m1').example('Another example');
+
+The example will be set to "Another example" instead of "An example".
+
+Testing
+-------
+
+As of 1.4, this plugin now comes with a QUnit test suite that you can find
+in the test/ directory and run by opening index.html in your browser.
 
 Compatibility
 -------------
 
 This plugin has been tested with jQuery 1.1 and newer and should work in all
-browsers supported by jQuery itself (it has been tested with Safari 3 and
-newer, Mozilla Firefox 2 and newer, Opera 9.26 and Internet Explorer 6).
+browsers supported by jQuery itself (it has been tested with Safari 4, Google Chrome 0.2.149.29, Mozilla Firefox 3, Opera 9.52 and
+Internet Explorer 7).
 
 Author
 ------
