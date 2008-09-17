@@ -1,5 +1,5 @@
 /*
- * jQuery Form Example Plugin 1.4
+ * jQuery Form Example Plugin 1.4.1
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
