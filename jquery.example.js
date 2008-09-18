@@ -32,9 +32,7 @@
     /* Only calculate once whether a callback has been used. */
     var isCallback = $.isFunction(text);
     
-    /* Merge the default options with the given arguments and the given
-     * text with the text option.
-     */
+    /* Merge the arguments and given example text into one options object. */
     var options = $.extend({}, args, {example: text});
     
     return this.each(function() {
@@ -42,9 +40,10 @@
       /* Reduce method calls by saving the current jQuery object. */
       var $this = $(this);
       
-      if ($.metadata) {
-        
-        /* If the Metadata plugin is being used merge in the options. */
+      /* Merge the plugin defaults with the given options and, if present,
+       * any metadata.
+       */
+      if ($.metadata) {        
         var o = $.extend({}, $.fn.example.defaults, $this.metadata(), options);
       } else {
         var o = $.extend({}, $.fn.example.defaults, options);
