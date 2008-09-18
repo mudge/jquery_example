@@ -55,8 +55,7 @@ dynamically change the example text of a field after page load like so:
     });
     
 The plugin also supports the jQuery Metadata plugin which allows you to 
-specify metadata in elements themselves. You can specify the example text and
-hide_label options like so:
+specify metadata in elements themselves. You can specify the example text and any options like so:
 
     <input id="m1" class="{example: 'An example', className: 'abc' }" />
 
