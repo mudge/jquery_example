@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>jQuery Form Example Plugin</title>
+  <style type="text/css">html{font:small Helvetica;background:#eee;}body{margin:20px;}.example{color:#666;}.not_example{color:#c6c;}.case{margin-bottom:10px;border:1px solid #999;padding:0 10px;background:#fff;}pre{border:1px solid #996;background:#ffc;padding:5px;}h1,h3,pre,code{font-size:1em;}h1{font-size:1.5em;}input{width:200px;}</style>
+</head>
+<body>
+  <h1>jQuery Form Example Plugin</h1>
+  <p>This is a usage guide for the <a href="http://mucur.name/posts/jquery-example">jQuery Form Example plugin</a> by <a href="http://mucur.name/">Paul Mucur</a>. Below you will find several different use cases including the relevant HTML and JavaScript source code.</p>
+  <p>As of version 1.4, the plugin now comes with a <a href="http://docs.jquery.com/QUnit">QUnit</a> test suite.</p>
+  <form action="javascript:alert('Form submitted, all examples should be cleared.');">
+    <div class="case">
+      <p>The following field should contain the example text "Simple example".</p>
+      <p><input id="simple" type="text" /></p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input id="simple" type="text" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('#simple').example('Simple example');</code></pre>
+    </div>
+    
+    <div class="case">
+      <p>The following field should contain the example text "Taken from the title" which is stored in its title attribute and set using a callback.</p>
+      <p><input type="text" id="callback" title="Taken from the title" /></p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input type="text" id="callback" title="Taken from the title" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('#callback').example(function() {
+  return $(this).attr('title');
+});</code></pre>
+      </p>
+    </div>
+    
+    <div class="case">
+      <p>The following field should contain the example text "Taken from the title and pink" in pink as it uses both a callback and the <code>className</code> option.</p>
+      <p><input type="text" id="callback_with_custom_class" title="Taken from the title and pink" /></p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input type="text" id="callback_with_custom_class" title="Taken from the title and pink" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('#callback_with_custom_class').example(function() {
+return $(this).attr('title');
+}, {className: 'not_example'});</code></pre>
+      </p>
+    </div>
+    
+    <div class="case">
+      <p>The following fields should all have examples set from their title attribute.</p>
+      <p>
+        <input type="text" class="multiple_callback" title="Title 1" />
+        <input type="text" class="multiple_callback" title="Title 2" />
+        <input type="text" class="multiple_callback" title="Title 3" />
+      </p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input type="text" class="multiple_callback" title="Title 1" /&gt;
+&lt;input type="text" class="multiple_callback" title="Title 2" /&gt;
+&lt;input type="text" class="multiple_callback" title="Title 3" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('.multiple_callback').example(function() {
+ return $(this).attr('title'); 
+});</code></pre>
+    </div>
+    
+    <div class="case">
+      <p>The following field should contain the example text "Type here..." in pink text.</p>
+      <p>
+        <textarea id="content"></textarea>
+      </p>
+      <h3>HTML</h3>
+      <pre><code>&lt;textarea id="content"&gt;&lt;/textarea&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('#content').example('Type here...', {
+  className: 'not_example'
+});</code></pre>
+    </div>
+    
+    <div class="case">
+      <p>The following fields should all contain the same example text of "Several at once."</p>
+      <p>
+        <input type="text" class="multiple" />
+        <input type="text" class="multiple" />
+        <input type="text" class="multiple" />
+        <input type="text" class="multiple" />
+      </p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input type="text" class="multiple" /&gt;
+&lt;input type="text" class="multiple" /&gt;
+&lt;input type="text" class="multiple" /&gt;
+&lt;input type="text" class="multiple" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('.multiple').example('Several at once.');</code></pre>
+    </div>
+    
+    <div class="case">
+      <p>The following field should have a value of "I already have a value" on page load but once cleared should have the example text of "This should not appear on page load."</p>
+      <p>
+        <input id="prefilled" type="text" value="I already have a value" />
+      </p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input id="prefilled" type="text" value="I already have a value" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+<pre><code>$('#prefilled').example('This should not appear on page load.');</code></pre>
+      </div>
+      <div class="case">
+      <p>The following field should contain the example text "Multiple class names".</p>
+      <p>
+        <input id="multiple_classNames" type="text" class="something anything" />
+      </p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input id="multiple_classNames" type="text" class="something anything" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+<pre><code>$('#multiple_classNames').example('Multiple class names');</code></pre>
+    </div>
+      
+    <div class="case">
+      <p>The following field should contain the example text "This is one thing" taken from its <code>title</code> attribute but after focusing on it once, the example should change to "Not anymore".</p>
+      <p><input id="modifying_callback" title="This is one thing" type="text" /></p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input id="modifying_callback" title="This is one thing" type="text" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('#modifying_callback').example(function() {
+var text = $(this).attr('title');
+$(this).attr('title', 'Not anymore');
+return text;
+});</code></pre>
+    </div>
+      
+    <div class="case">
+      <p>The following three fields should have values of "Not example by default" in pink text as they are all styled with the CSS class name "not_example" by changing the plugin defaults.</p>
+      <p>
+        <input id="defaults_test_1" type="text" />
+        <input id="defaults_test_2" type="text" />
+        <input id="defaults_test_3" type="text" />
+      </p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input id="defaults_test_1" type="text" /&gt;
+&lt;input id="defaults_test_2" type="text" /&gt;
+&lt;input id="defaults_test_3" type="text" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$.fn.example.defaults.className = 'not_example';
+$('#defaults_test_1').example('Not example by default');
+$('#defaults_test_2').example('Not example by default');
+$('#defaults_test_3').example('Not example by default');</code></pre>
+      </div>
+      
+      <div class="case">
+        <p>The following field should have its example set to "Metadata plugin rules" as defined by using the Metadata plugin.</p>
+        <p>
+          <input id="metadata_1" class="{example: 'Metadata plugin rules'}" />
+        </p>
+        <h3>HTML</h3>
+        <pre><code>&lt;input id="metadata_1" class="{example: 'Metadata plugin rules'}" /&gt;</code></pre>
+        <h3>JavaScript</h3>
+        <pre><code>$('#metadata_1').example();</code></pre>
+      </div>
+      
+      <div class="case">
+        <p>The following field should have its example set to "This will override the metadata" as specified in the function call even though it has metadata.</p>
+        <p>
+          <input id="metadata_2" class="{example: 'Metadata plugin does not take precedence'}" />
+        </p>
+        <h3>HTML</h3>
+        <pre><code>&lt;input id="metadata_2" class="{example: 'Metadata plugin does not takes precedence'}" /&gt;</code></pre>
+        <h3>JavaScript</h3>
+        <pre><code>$('#metadata_2').example('This will be override the metadata');</code></pre>
+      </div>
+      
+      <div class="case">
+      <p>Clicking the following submit button should clear all example text but leave real values (if this was a real form, you do not want the examples to be sent with the form).</p>
+      <p><input type="submit" /></p>
+    </div>
+  </form>
+  
+  <form action="javascript:alert('Second form submitted, all examples within this form only should be cleared.');">
+    <div class="case">
+      <p>This field is inside a separate form and submitting it should only clear the values here, leaving the other form intact.</p>
+      <p><input id="second_form" type="text" /></p>
+      <p><input type="submit" /></p>
+      <h3>HTML</h3>
+      <pre><code>&lt;input id="second_form" type="text" /&gt;</code></pre>
+      <h3>JavaScript</h3>
+      <pre><code>$('#second_form').example('Only I should be cleared when you click below');</code></pre>
+    </div>
+  </form>
+  
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("jquery", "1.2");
+  </script>
+  <script src="http://dev.jquery.com/~john/plugins/profile/jquery-profile.js"></script>
+  <script type="text/javascript" src="test/metadata.js"></script>
+  <script type="text/javascript" src="jquery.example.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('#simple').example('Simple example');
+      
+      $('#callback').example(function() {
+         return $(this).attr('title'); 
+      });
+      
+      $('#callback_with_custom_class').example(function() {
+        return $(this).attr('title'); 
+      }, { className: 'not_example' });
+      
+      $('.multiple_callback').example(function() {
+       return $(this).attr('title'); 
+      });
+      
+      $('#comments').example('First!', {
+        className: 'not_example'
+      });
+      
+      $('#content').example('Type here...', {
+        className: 'not_example'
+      });
+      
+      $('.multiple').example('Several at once.');
+      
+      $('#prefilled').example('This should not appear on page load.');
+      
+      $('#multiple_classNames').example('Multiple class names');
+      
+      $('#modifying_callback').example(function() {
+        var text = $(this).attr('title');
+        $(this).attr('title', 'Not anymore');
+        return text;
+      });
+      
+      $('#metadata_1').example();
+      $('#metadata_2').example('This will override the metadata');
+      
+      $('#second_form').example('Only I should be cleared when you click below');
+      
+      $.fn.example.defaults.className = 'not_example';
+      $('#defaults_test_1').example('Not example by default');
+      $('#defaults_test_2').example('Not example by default');
+      $('#defaults_test_3').example('Not example by default');
+    });
+  </script>
+</body>
+</html>
