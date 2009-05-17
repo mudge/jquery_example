@@ -1,5 +1,5 @@
 /*
- * jQuery Form Example Plugin 1.4.1
+ * jQuery Form Example Plugin 1.4.2
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -129,7 +129,14 @@
           $(this).removeClass(o.className);
         }
       });
-    
+
+      /* Detect a change event to the field and remove the example class. */
+      $this.change(function() {
+        if ($(this).is('.' + o.className)) {
+          $(this).removeClass(o.className);
+        }
+      });
+
       /* Make the example text reappear if the input is blank on blurring. */
       $this.blur(function() {
         if ($(this).val() == '') {

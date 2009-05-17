@@ -17,7 +17,7 @@
   
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="metadata.js"></script>
-  
+
   <!-- Include the library twice. -->
   <script type="text/javascript" src="../jquery.example.js"></script>  
   <script type="text/javascript" src="../jquery.example.js"></script>
@@ -199,6 +199,21 @@
     equals($('#m2').val(), "Precedence", "The example in the arguments should take precedence");
     ok($('#m2').hasClass('o1'), "The class should be 'o1'.");
   });
+  
+  module("Changing values by Javascript");
+  test("should set example", function() {
+    $('#f1').example('Example');
+
+    equals($('#f1').val(), "Example", "The example should read 'Example'.");
+    ok($('#f1').hasClass('example'), "The example class should be set.");
+  });
+  test("should remove example class when changed", function() {
+    $('#f1').val("New value");
+    $('#f1').change();
+    
+    equals($('#f1').val(), "New value", "Value should be changed to 'New value'.");
+    ok(!$('#f1').hasClass('example'), "The example class should no longer be set.");
+  });
   </script>
   <div id="inputs">
   <form id="basicform">
@@ -221,6 +236,9 @@
   <form id="metadata">
   <p><input type="text" id="m1" class="{example: 'Something', className: 'm1'}"></p>
   <p><input type="text" id="m2" class="{example: 'Override', className: 'm2'}"></p>
+  </form>
+  <form id="no_focus">
+  <p><input type="text" id="f1"></p>
   </form>
   </div>
 </body>
