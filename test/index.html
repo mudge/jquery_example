@@ -14,31 +14,31 @@
   <ol id="tests"></ol>
   <div id="results"></div>
   <div id="main"></div>
-  
+
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="metadata.js"></script>
 
   <!-- Include the library twice. -->
-  <script type="text/javascript" src="../jquery.example.js"></script>  
+  <script type="text/javascript" src="../jquery.example.js"></script>
   <script type="text/javascript" src="../jquery.example.js"></script>
   <script type="text/javascript" src="testrunner.js"></script>
   <script type="text/javascript">
   module("Basic usage");
   test("should have an example set", function() {
     $('#basic1').example("Test");
-  
+
     equals($('#basic1').val(), "Test", "The example should read 'Test'.");
     ok($('#basic1').hasClass('example'), "The class should be 'example'.");
   });
   test("should be cleared on focus", function() {
     $('#basic1').focus();
-    
+
     equals($('#basic1').val(), "", "The example should be cleared.");
     ok(!$('#basic1').hasClass('example'), "The class should no longer be 'example'.");
   });
   test("should reappear on blur if empty", function() {
     $('#basic1').blur();
-    
+
     equals($('#basic1').val(), "Test", "The example should read 'Test'.");
     ok($('#basic1').hasClass('example'), "The class should be 'example'.");
   });
@@ -46,13 +46,13 @@
     $('#basic1').focus();
     $('#basic1').val("My own value");
     $('#basic1').blur();
-    
+
     equals($('#basic1').val(), "My own value", "The example should not be cleared.");
     ok(!$('#basic1').hasClass('example'), "The class should not be 'example'.");
   });
   test("should not be populated with an example on focus if user input is present", function() {
     $('#basic1').focus();
-    
+
     equals($('#basic1').val(), "My own value", "The example should not be cleared.");
     ok(!$('#basic1').hasClass('example'), "The class should not be 'example'.");
 
@@ -61,49 +61,57 @@
     $('#basic1').blur();
   });
   test("should be cleared on form submit", function() {
-    
+
     // Can't use submit as we'd go into an infinite loop.
     $('#basicform').triggerHandler('submit');
-    
+
     equals($('#basic1').val(), "", "The example should be cleared.");
   });
   test("shouldn't clear user inputs on form submit", function() {
     $('#basic1').focus();
     $('#basic1').val("User input");
     $('#basicform').triggerHandler('submit');
-    
+
     equals($('#basic1').val(), "User input", "The user input should be intact.");
-    
+
     // Clear the input for the rest of the tests.
     $('#basic1').val('');
     $('#basic1').blur();
   });
-  
+  test("shouldn't be cleared on focus when selectAll is true", function() {
+      $('#basic2').example("Test", {selectAll: true});
+      $('#basic2').focus();
+
+      equals($('#basic2').val(), "Test", "The example should not be cleared.");
+      ok(!$('#basic2').hasClass('example'), "The class should no longer be 'example'.");
+  });
+
+
   module("Using custom classes");
   test("should have an example set", function() {
     $('#custom1').example("Test", {className: "notExample"});
-    
+
     equals($('#custom1').val(), "Test", "The example should be set.");
     ok($('#custom1').hasClass('notExample'), "The class should be the specified one.");
     ok(!$('#custom1').hasClass('example'), "The class should not be 'example'.");
   });
   test("should be cleared on focus", function() {
     $('#custom1').focus();
-    
+
     equals($('#custom1').val(), "", "The example should be cleared.");
     ok(!$('#custom1').hasClass('notExample'), "The class should not be the specified one.");
   });
   test("should be reappear on blur", function() {
     $('#custom1').blur();
-    
+
     equals($('#custom1').val(), "Test", "The example should reappear.");
     ok($('#custom1').hasClass('notExample'), "The class should be the specified one.");
   });
-  
+
   module("Multiple forms");
   test("should only clear examples in that form", function() {
     $('#customform').triggerHandler('submit');
-    
+
     equals($('#custom1').val(), "", "The example should be cleared.");
     equals($('#basic1').val(), "Test", "An example in another form should not be cleared.");
   });
@@ -111,41 +119,41 @@
   module("Simple callback");
   test("should have an example set", function() {
     $('#callback1').example(function() { return "Callback Test" });
-    
+
     equals($('#callback1').val(), "Callback Test", "The example should read 'Callback Test'.");
     ok($('#callback1').hasClass('example'), "The class should be 'example'.");
   });
   test("should be cleared on focus", function() {
     $('#callback1').focus();
-    
+
     equals($('#callback1').val(), "", "The example should be cleared.");
     ok(!$('#callback1').hasClass('example'), "The class should no longer be 'example'.");
   });
   test("should reappear on blur if empty", function() {
     $('#callback1').blur();
-    
+
     equals($('#callback1').val(), "Callback Test", "The example should read 'Callback Test'.");
     ok($('#callback1').hasClass('example'), "The class should be 'example'.");
   });
-  
+
   module("More complicated callback");
   test("should have an example set", function() {
     $('#callback2').example(function() {
       return $(this).attr('title');
     });
-    
+
     equals($('#callback2').val(), "Starting", "The example should read 'Starting'.");
     ok($('#callback2').hasClass('example'), "The class should be 'example'.");
   });
   test("should be cleared on focus", function() {
     $('#callback2').focus();
-    
+
     equals($('#callback2').val(), "", "The example should be cleared.");
     ok(!$('#callback2').hasClass('example'), "The class should no longer be 'example'.");
   });
   test("should reappear on blur if empty", function() {
     $('#callback2').blur();
-    
+
     equals($('#callback2').val(), "Starting", "The example should read 'Starting'.");
     ok($('#callback2').hasClass('example'), "The class should be 'example'.");
   });
@@ -153,15 +161,15 @@
     $('#callback2').attr('title', 'Another');
     $('#callback2').focus();
     $('#callback2').blur();
-    
+
     equals($('#callback2').val(), "Another", "The example should read 'Another'.");
     ok($('#callback2').hasClass('example'), "The class should be 'example'.");
   });
-  
+
   module("On page load");
   test("should not set an example if a value is already set", function() {
     $('#load1').example("Test");
-    
+
     equals($('#load1').val(), "Already filled in", "The example should not be set.");
     ok(!$('#load1').hasClass('example'), "The class should not be 'example'.");
   });
@@ -169,37 +177,37 @@
     $('#load2').example(function() {
       return "Nope";
     });
-    
+
     equals($('#load2').val(), "Default", "The value should be the default.");
     ok(!$('#load2').hasClass('example'), "The class should not be 'example'.");
   });
-  
+
   module("Metadata plugin");
   test("should have an example set", function() {
     $('#m1').example();
-    
+
     equals($('#m1').val(), "Something", "The example should read 'Something'.");
     ok($('#m1').hasClass('m1'), "The class should be 'm1'.");
   });
   test("should be cleared on focus", function() {
     $('#m1').focus();
-    
+
     equals($('#m1').val(), "", "The example should be cleared.");
     ok(!$('#m1').hasClass('m1'), "The class should no longer be 'm1'.");
   });
   test("should reappear on blur if empty", function() {
     $('#m1').blur();
-    
+
     equals($('#m1').val(), "Something", "The example should read 'Something'.");
     ok($('#m1').hasClass('m1'), "The class should be 'm1'.");
   });
   test("should be overridden by arguments", function() {
     $('#m2').example('Precedence', {className: 'o1'});
-    
+
     equals($('#m2').val(), "Precedence", "The example in the arguments should take precedence");
     ok($('#m2').hasClass('o1'), "The class should be 'o1'.");
   });
-  
+
   module("Changing values by Javascript");
   test("should set example", function() {
     $('#f1').example('Example');
@@ -210,7 +218,7 @@
   test("should remove example class when changed", function() {
     $('#f1').val("New value");
     $('#f1').change();
-    
+
     equals($('#f1').val(), "New value", "Value should be changed to 'New value'.");
     ok(!$('#f1').hasClass('example'), "The example class should no longer be set.");
   });
@@ -218,6 +226,7 @@
   <div id="inputs">
   <form id="basicform">
   <p><input type="text" id="basic1"></p>
+  <p><input type="text" id="basic2"></p>
   <p><input type="submit"></p>
   </form>
   <form id="customform">
