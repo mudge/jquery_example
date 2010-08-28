@@ -1,4 +1,4 @@
-jQuery Form Example Plugin 1.4.2
+jQuery Form Example Plugin 1.4.3
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -39,7 +39,7 @@ used instead to determine the value at runtime:
     $('input#name').example(function() {
        return $(this).attr('title'); 
     });
-    
+
 The above example will set the example text to the `title` attribute of the
 input. The callback is executed within the context of the input field so, as
 in the example above, `$(this)` will return the input itself.
@@ -53,7 +53,7 @@ dynamically change the example text of a field after page load like so:
         $(this).attr('title', 'Not the original title anymore');
         return text;
     });
-    
+
 The plugin also supports the jQuery Metadata plugin which allows you to 
 specify metadata in elements themselves. You can specify the example text and any options like so:
 
