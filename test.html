@@ -3,26 +3,63 @@
   <head>
     <meta charset="utf-8">
     <title>jQuery Example Test</title>
+    <link rel="stylesheet" type="text/css" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css">
     <style type="text/css">
-      .styled {
-        background-color: #fee;
-        font: serif;
-        border-radius: 15px;
-        -moz-border-radius: 15px;
-        border: 1px solid #900;
+      #basic {
+        background: rgb(255, 0, 0);
+        font-size: 11px;
+        font-family: Verdana;
+        border: 2px solid #0f0;
       }
     </style>
   </head>
   <body>
-    <form>
-      <p><input type="text" class="styled example"></p>
-      <p><input type="password" class="example"></p>
-    </form>
+    <h1 id="qunit-header">jQuery Form Input Example</h1>
+    <h2 id="qunit-banner"></h2>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="qunit-fixture">
+      <p><input type="text" id="basic"></p>
+      <p><input type="password" id="password"></p>
+    </div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
     <script type="text/javascript" src="jquery.example.js"></script>
     <script type="text/javascript">
       (function($, undefined) {
-        $('.example').example('Placeholder');
+        test('basic functionality', function() {
+          var basic_input = $('#basic');
+
+          equals(basic_input.next().length, 0, 'basic input should have no span next to it');
+
+          basic_input.example('An example');
+
+          var basic_example = basic_input.next();
+
+          equals(basic_input.next().length, 1, 'basic input should have a span next to it');
+          equals(basic_input.css('background-color'), 'transparent');
+          equals(basic_example.css('background-color'), 'rgb(255, 0, 0)');
+          equals(basic_example.css('font-size'), '11px');
+          equals(basic_example.css('font-family'), 'Verdana');
+          equals(basic_example.css('font-family'), 'Verdana');
+          equals(basic_example.css('border-top-width'), '2px');
+          equals(basic_example.css('border-right-width'), '2px');
+          equals(basic_example.css('border-bottom-width'), '2px');
+          equals(basic_example.css('border-left-width'), '2px');
+          equals(basic_example.css('border-top-style'), 'solid');
+          equals(basic_example.css('border-right-style'), 'solid');
+          equals(basic_example.css('border-bottom-style'), 'solid');
+          equals(basic_example.css('border-left-style'), 'solid');
+          equals(basic_example.css('border-top-color'), 'transparent');
+          equals(basic_example.css('border-right-color'), 'transparent');
+          equals(basic_example.css('border-bottom-color'), 'transparent');
+          equals(basic_example.css('border-top-color'), 'transparent');
+          equals(basic_example.innerWidth(), basic_input.innerWidth());
+          equals(basic_example.outerWidth(), basic_input.outerWidth());
+          equals(basic_example.innerHeight(), basic_input.innerHeight());
+          equals(basic_example.outerHeight(), basic_input.outerHeight());
+          equals(basic_example.css('z-index'), '-1');
+        });
       })(jQuery);
     </script>
   </body>

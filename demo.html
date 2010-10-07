@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<title>Demo Page</title>
+<style type="text/css">
+  #example {
+    border: 1px solid #f00;
+    border-radius: 10px;
+  }
+</style>
+<p><input id="example" type="text">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.example.js"></script>
+<script type="text/javascript">
+  (function($, undefined) {
+   $('#example').example('An example.');
+  })(jQuery);
+</script>
