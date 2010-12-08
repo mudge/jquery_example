@@ -112,3 +112,8 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
+
+Donations
+---------
+
+<a href='http://www.pledgie.com/campaigns/1517'><img alt='Click here to lend your support to: jquery_example and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/1517.png?skin_name=chrome' border='0' /></a>
