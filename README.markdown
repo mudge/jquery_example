@@ -1,3 +1,5 @@
+*WARNING: The current version of this plugin is not yet compatible with jQuery 1.6+*
+
 jQuery Form Example Plugin 1.4.3
 ======================================
 
@@ -75,9 +77,11 @@ in the test/ directory and run by opening index.html in your browser.
 Compatibility
 -------------
 
-This plugin has been tested with jQuery 1.1 and newer and should work in all
+This plugin has been tested with jQuery 1.1 to 1.5 and should work in all
 browsers supported by jQuery itself (it has been tested with Safari 4, Google Chrome 0.2.149.29, Mozilla Firefox 3, Opera 9.52 and
 Internet Explorer 7).
+
+It is not yet compatible with jQuery 1.6's changes to `val()`.
 
 Author
 ------
