@@ -1,6 +1,4 @@
-*WARNING: The current version of this plugin is not yet compatible with jQuery 1.6+*
-
-jQuery Form Example Plugin 1.4.3
+jQuery Form Example Plugin 1.5
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -68,6 +66,20 @@ Please note that metadata will be overridden by arguments, e.g.
 
 The example will be set to "Another example" instead of "An example".
 
+All events are namespaced with `.example` so they can be selectively unbound with
+`unbind('.example')`. The full list is as follows:
+
+* `unload.example` on the `window`;
+* `submit.example` on any affected `form`s;
+* `focus.example` on affected inputs;
+* `change.example` on affected inputs;
+* `blur.example` on affected inputs.
+
+Downloading
+-----------
+
+[Download jQuery Example 1.5](https://github.com/mudge/jquery_example/zipball/v1.5).
+
 Testing
 -------
 
@@ -77,11 +89,9 @@ in the test/ directory and run by opening index.html in your browser.
 Compatibility
 -------------
 
-This plugin has been tested with jQuery 1.1 to 1.5 and should work in all
-browsers supported by jQuery itself (it has been tested with Safari 4, Google Chrome 0.2.149.29, Mozilla Firefox 3, Opera 9.52 and
-Internet Explorer 7).
-
-It is not yet compatible with jQuery 1.6's changes to `val()`.
+This plugin has been tested with jQuery 1.1 to 1.6 and should work in all
+browsers supported by jQuery itself (it has been tested with Safari 4,
+Google Chrome 0.2.149.29, Mozilla Firefox 3, Opera 9.52 and Internet Explorer 7).
 
 Author
 ------
@@ -102,7 +112,7 @@ The code to support the Metadata plugin was contributed by DeLynn Berry (http://
 Licensing
 ---------
 
-Copyright (c) Paul Mucur (http://mucur.name), 2007-2008.
+Copyright (c) Paul Mucur (http://mudge.name), 2007-2011.
 
 Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL (GPL-LICENSE.txt)
 Licenses.

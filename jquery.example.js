@@ -1,5 +1,5 @@
 /*
- * jQuery Form Example Plugin 1.4.3
+ * jQuery Form Example Plugin 1.5
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -11,7 +11,7 @@
  *    className: 'example_text'
  *  });
  *
- * Copyright (c) Paul Mucur (http://mucur.name), 2007-2008.
+ * Copyright (c) Paul Mucur (http://mudge.name), 2007-2011.
  * Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL (GPL-LICENSE.txt)
  * licenses.
  *
@@ -25,7 +25,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-(function($) {
+(function($, undefined) {
 
   $.fn.example = function(text, args) {
 
@@ -67,7 +67,7 @@
          * values must be cleared on page unload to prevent them from
          * being saved.
          */
-        $(window).unload(function() {
+        $(window).bind('unload.example', function() {
           $('.' + o.className).val('');
         });
 
@@ -78,7 +78,7 @@
          * parents of example fields but this meant that a page with
          * multiple forms would not work correctly.
          */
-        $('form').submit(function() {
+        $('form').bind('submit.example', function() {
 
           /* Clear only the fields inside this particular form. */
           $(this).find('.' + o.className).val('');
@@ -99,7 +99,7 @@
        *
        * Many thanks to Klaus Hartl for helping resolve this issue.
        */
-      if (!$this.attr('defaultValue') && (isCallback || $this.val() == o.example))
+      if (!$this.attr('value') && (isCallback || $this.val() == o.example))
         $this.val('');
 
       /* Initially place the example text in the field if it is empty
@@ -121,7 +121,7 @@
        * seems wasteful and can stop people from using example values as real
        * input.
        */
-      $this.focus(function() {
+      $this.bind('focus.example', function() {
 
         /* jQuery 1.1 has no hasClass(), so is() must be used instead. */
         if ($(this).is('.' + o.className)) {
@@ -131,14 +131,14 @@
       });
 
       /* Detect a change event to the field and remove the example class. */
-      $this.change(function() {
+      $this.bind('change.example', function() {
         if ($(this).is('.' + o.className)) {
           $(this).removeClass(o.className);
         }
       });
 
       /* Make the example text reappear if the input is blank on blurring. */
-      $this.blur(function() {
+      $this.bind('blur.example', function() {
         if ($(this).val() == '') {
           $(this).addClass(o.className);
 
