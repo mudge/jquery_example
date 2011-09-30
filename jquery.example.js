@@ -25,28 +25,30 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-(function($, undefined) {
+(function($) {
+  "use strict";
 
   $.fn.example = function(text, args) {
 
-    /* Only calculate once whether a callback has been used. */
-    var isCallback = $.isFunction(text);
-
-    /* Merge the arguments and given example text into one options object. */
-    var options = $.extend({}, args, {example: text});
+    /* Only calculate once whether a callback has been used
+     * and merge the arguments and given example text into one options object.
+     */
+    var isCallback = $.isFunction(text),
+        options    = $.extend({}, args, {example: text});
 
     return this.each(function() {
 
       /* Reduce method calls by saving the current jQuery object. */
-      var $this = $(this);
+      var o,
+          $this = $(this);
 
       /* Merge the plugin defaults with the given options and, if present,
        * any metadata.
        */
       if ($.metadata) {
-        var o = $.extend({}, $.fn.example.defaults, $this.metadata(), options);
+        o = $.extend({}, $.fn.example.defaults, $this.metadata(), options);
       } else {
-        var o = $.extend({}, $.fn.example.defaults, options);
+        o = $.extend({}, $.fn.example.defaults, options);
       }
 
       /* The following event handlers only need to be bound once
@@ -99,13 +101,14 @@
        *
        * Many thanks to Klaus Hartl for helping resolve this issue.
        */
-      if (!$this.attr('value') && (isCallback || $this.val() == o.example))
+      if (!$this.attr('value') && (isCallback || $this.val() === o.example)) {
         $this.val('');
+      }
 
       /* Initially place the example text in the field if it is empty
        * and doesn't have focus yet.
        */
-      if ($this.val() == '' && this != document.activeElement) {
+      if ($this.val() === '' && this !== document.activeElement) {
         $this.addClass(o.className);
 
         /* The text argument can now be a function; if this is the case,
@@ -139,7 +142,7 @@
 
       /* Make the example text reappear if the input is blank on blurring. */
       $this.bind('blur.example', function() {
-        if ($(this).val() == '') {
+        if ($(this).val() === '') {
           $(this).addClass(o.className);
 
           /* Re-evaluate the callback function every time the user
@@ -164,4 +167,4 @@
   /* All the class names used are stored as keys in the following array. */
   $.fn.example.boundClassNames = [];
 
-})(jQuery);
+}(jQuery));
