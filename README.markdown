@@ -97,9 +97,8 @@ Author
 ------
 
 This plugin was written by and is maintained by Paul Mucur aka "mudge". Please
-do not hesitate to contact me with comments and bug reports through the
-plugin's official entry on the jQuery Plugins directory:
-http://plugins.jquery.com/project/example
+do not hesitate to contact me with comments and bug reports through GitHub:
+https://github.com/mudge/jquery_example/issues
 
 You can view the latest source code (and fork the entire project if you wish)
 at http://github.com/mudge/jquery_example
