@@ -1,7 +1,7 @@
 /*global window, document, jQuery */
 
 /*
- * jQuery Form Example Plugin 1.5.1
+ * jQuery Form Example Plugin 1.5.2
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -108,7 +108,8 @@
             /* Initially place the example text in the field if it is empty
              * and doesn't have focus yet.
              */
-            if ($this.val() === '' && this !== document.activeElement) {
+            if ($this.val() === '' &&
+                (!document.hasOwnProperty('activeElement') || this !== document.activeElement)) {
 
                 /* The text argument can now be a function; if this is the case,
                  * call it, passing the current element as `this`.

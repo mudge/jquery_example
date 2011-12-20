@@ -1,4 +1,4 @@
-jQuery Form Example Plugin 1.5.1
+jQuery Form Example Plugin 1.5.2
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -78,7 +78,7 @@ All events are namespaced with `.example` so they can be selectively unbound wit
 Downloading
 -----------
 
-[Download jQuery Example 1.5.1](https://github.com/mudge/jquery_example/zipball/v1.5.1).
+[Download jQuery Example 1.5.2](https://github.com/mudge/jquery_example/zipball/v1.5.2).
 
 Testing
 -------
