@@ -245,19 +245,37 @@
     });
     test("value is not touched if it doesn't match the example", function () {
         $('#c3').val('Some user input').example('Test');
-        equals($('#c3').val(), 'Some user input', 'Value should not have been modified.');
+        equal($('#c3').val(), 'Some user input', 'Value should not have been modified.');
         ok(!$('#c3').hasClass('example'), 'The example class should not be set.');
     });
     test('value is always cleared if the example is a callback', function () {
         $('#c4').val('Some user input').example(function () {
             return 'Test';
         });
-        equals($('#c4').val(), 'Test', 'The cached value is overridden.');
+        equal($('#c4').val(), 'Test', 'The cached value is overridden.');
         ok($('#c4').hasClass('example'), 'The example class should be set.');
     });
-    test("value is not touched if it is the default", function () {
+    test('value is not touched if it is the default', function () {
         $('#c5').val('Some default').example('Test');
-        equals($('#c5').val(), 'Some default', 'Value should not have been modified.');
+        equal($('#c5').val(), 'Some default', 'Value should not have been modified.');
         ok(!$('#c5').hasClass('example'), 'The example class should not be set.');
+    });
+
+    module('Custom events', {
+        teardown: resetPlugin
+    });
+    test('a specific form is cleared when calling example:resetForm on it', function () {
+        $('#ce1, #ce2').example('Testing');
+        $('#custom').trigger('example:resetForm');
+        equal($('#ce1').val(), '', 'The value should have been cleared.');
+        ok(!$('#ce1').hasClass('example'), 'The example class should not be set.');
+        equal($('#ce2').val(), 'Testing', 'The value should not have been cleared.');
+        ok($('#ce2').hasClass('example'), 'The example class should be set.');
+    });
+    test('triggering example:resetForm on a field will bubble to the form', function () {
+        $('#ce1').example('Testing');
+        $('#ce1').trigger('example:resetForm');
+        equal($('#ce1').val(), '', 'The value should have been cleared.');
+        ok(!$('#ce1').hasClass('example'), 'The example class should not be set.');
     });
 }(jQuery));

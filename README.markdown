@@ -1,4 +1,4 @@
-jQuery Form Example Plugin 1.5.2
+jQuery Form Example Plugin 1.6.0
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -75,10 +75,23 @@ All events are namespaced with `.example` so they can be selectively unbound wit
 * `change.example` on affected inputs;
 * `blur.example` on affected inputs.
 
+As of 1.6.0, if you wish to manually trigger clearing examples from a form (e.g. because you wish to override a form's `submit` event in some way) then you can trigger a special custom event, `example:resetForm` to do so:
+
+```javascript
+$('#myform').trigger('example:resetForm');
+```
+
+Note that, due to event bubbling, triggering `example:resetForm` on a specific field will actual propagate up to its parent form and reset all examples.
+
+```javascript
+/* This will actually bubble up to trigger on #myform. */
+$('#myform input.name').trigger('example:resetForm');
+```
+
 Downloading
 -----------
 
-[Download jQuery Example 1.5.2](https://github.com/mudge/jquery_example/zipball/v1.5.2).
+[Download jQuery Example 1.6.0](https://github.com/mudge/jquery_example/zipball/v1.6.0).
 
 Testing
 -------
@@ -112,7 +125,7 @@ The code to support the Metadata plugin was contributed by DeLynn Berry (http://
 Licensing
 ---------
 
-Copyright (c) Paul Mucur (http://mudge.name), 2007-2011.
+Copyright (c) Paul Mucur (http://mudge.name), 2007-2012.
 
 Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL (GPL-LICENSE.txt)
 Licenses.

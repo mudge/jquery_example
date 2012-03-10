@@ -1,7 +1,7 @@
 /*global window, document, jQuery */
 
 /*
- * jQuery Form Example Plugin 1.5.2
+ * jQuery Form Example Plugin 1.6.0
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
@@ -13,7 +13,7 @@
  *        className: 'example_text'
  *    });
  *
- * Copyright (c) Paul Mucur (http://mudge.name), 2007-2011.
+ * Copyright (c) Paul Mucur (http://mudge.name), 2007-2012.
  * Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL (GPL-LICENSE.txt)
  * licenses.
  *
@@ -28,7 +28,38 @@
  * GNU General Public License for more details.
  */
 (function ($) {
-    "use strict";
+    'use strict';
+
+    /* Define a helper function to attach event handlers in the best possible way
+     * while remaining compatible with older versions of jQuery.
+     */
+    var attach;
+
+    if ($.fn.on) {
+
+        /* jQuery 1.7's `on` is the preferred way of attaching event handlers. */
+        attach = function (selector, events, callback) {
+            $('body').on(events, selector, callback);
+        };
+    } else if ($.fn.delegate) {
+
+        /* Followed by jQuery 1.4.2's `delegate`. */
+        attach = function (selector, events, callback) {
+            $('body').delegate(selector, events, callback);
+        };
+    } else if ($.fn.live) {
+
+        /* Then jQuery 1.3's `live`. */
+        attach = function (selector, events, callback) {
+            $(selector).live(events, callback);
+        };
+    } else {
+
+        /* Fall back to jQuery 1.0's `bind`. */
+        attach = function (selector, events, callback) {
+            $(selector).bind(events, callback);
+        };
+    }
 
     $.fn.example = function (text, args) {
 
@@ -37,7 +68,7 @@
 
         return this.each(function () {
 
-            var o, clearExamples, $this = $(this);
+            var o, $this = $(this);
 
             /* Merge the plugin defaults with the given options and, if present,
              * any metadata.
@@ -47,10 +78,6 @@
             } else {
                 o = $.extend({}, $.fn.example.defaults, options);
             }
-
-            clearExamples = function () {
-                $(this).find('.' + o.className).val('');
-            };
 
             /* The following event handlers only need to be bound once
              * per class name. In order to do this, an array of used
@@ -67,7 +94,7 @@
                  * being saved.
                  */
                 $(window).bind('unload.example', function () {
-                    $('.' + o.className).val('');
+                    $('.' + o.className).val('').removeClass(o.className);
                 });
 
                 /* Clear fields that are still examples before any form is submitted
@@ -76,15 +103,9 @@
                  * Where possible, attempt to delegate this event handler so that
                  * all forms are bound now and in the future.
                  */
-                if ($.fn.on) {
-                    $('body').on('submit.example', 'form', clearExamples);
-                } else if ($.fn.delegate) {
-                    $('body').delegate('form', 'submit.example', clearExamples);
-                } else if ($.fn.live) {
-                    $('form').live('submit.example', clearExamples);
-                } else {
-                    $('form').bind('submit.example', clearExamples);
-                }
+                attach('form', 'submit.example example:resetForm', function () {
+                    $(this).find('.' + o.className).val('').removeClass(o.className);
+                });
 
                 /* Add the class name to the array. */
                 $.fn.example.boundClassNames[o.className] = true;
