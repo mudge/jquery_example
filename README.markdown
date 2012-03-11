@@ -1,4 +1,4 @@
-jQuery Form Example Plugin 1.6.0
+jQuery Form Example Plugin 1.6.0 [![Build Status](https://secure.travis-ci.org/mudge/jquery_example.png?branch=master)](http://travis-ci.org/mudge/jquery_example)
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
