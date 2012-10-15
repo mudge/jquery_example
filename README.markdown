@@ -102,7 +102,7 @@ in the test/ directory and run by opening index.html in your browser.
 Compatibility
 -------------
 
-This plugin has been tested with jQuery 1.2.3 to 1.7.0 and should work in all
+This plugin has been tested with jQuery 1.6 to 1.7.0 and should work in all
 browsers supported by jQuery itself (it has been tested with Safari 5.1.1,
 Google Chrome 15.0.874.121, Mozilla Firefox 3.6, Mozilla Firefox 8, Opera 11.52 and
 Internet Explorer 6).
