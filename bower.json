@@ -1,7 +1,7 @@
 {
   "name": "jquery_example",
   "version": "1.6.1",
-  "homepage": "https://github.com/nouveller/jquery_example",
+  "homepage": "https://github.com/mudge/jquery_example",
   "authors": [
     "Paul Mucur"
   ],
@@ -15,10 +15,8 @@
   ],
   "license": "BSD & GPL",
   "ignore": [
-    "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "test"
   ]
 }
