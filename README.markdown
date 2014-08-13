@@ -1,4 +1,4 @@
-jQuery Form Example Plugin 1.6.0 [![Build Status](https://secure.travis-ci.org/mudge/jquery_example.png?branch=master)](http://travis-ci.org/mudge/jquery_example)
+jQuery Form Example Plugin 1.6.1 [![Build Status](https://secure.travis-ci.org/mudge/jquery_example.png?branch=master)](http://travis-ci.org/mudge/jquery_example)
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -91,7 +91,13 @@ $('#myform input.name').trigger('example:resetForm');
 Downloading
 -----------
 
-[Download jQuery Example 1.6.0](https://github.com/mudge/jquery_example/zipball/v1.6.0).
+[Download jQuery Example 1.6.1](https://github.com/mudge/jquery_example/zipball/v1.6.1).
+
+Or use [Bower](http://bower.io/):
+
+```console
+$ bower install pacta
+```
 
 Testing
 -------
@@ -125,7 +131,7 @@ The code to support the Metadata plugin was contributed by DeLynn Berry (http://
 Licensing
 ---------
 
-Copyright (c) Paul Mucur (http://mudge.name), 2007-2012.
+Copyright (c) Paul Mucur (http://mudge.name), 2007-2014.
 
 Dual-licensed under the BSD (BSD-LICENSE.txt) and GPL (GPL-LICENSE.txt)
 Licenses.
