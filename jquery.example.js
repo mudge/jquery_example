@@ -152,9 +152,7 @@
 
             }).bind('change.example', function () {
 
-                if ($(this).is('.' + o.className)) {
-                    $(this).removeClass(o.className);
-                }
+                $(this).removeClass(o.className);
 
             }).bind('blur.example', function () {
 
