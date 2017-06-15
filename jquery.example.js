@@ -1,7 +1,7 @@
 /*global window, document, jQuery */
 
 /*
- * jQuery Form Example Plugin 1.6.0
+ * jQuery Form Example Plugin 1.6.1
  * Populate form inputs with example text that disappears on focus.
  *
  * e.g.
