@@ -1,4 +1,4 @@
-jQuery Form Example Plugin 1.6.1 [![Build Status](https://secure.travis-ci.org/mudge/jquery_example.png?branch=master)](http://travis-ci.org/mudge/jquery_example)
+jQuery Form Example Plugin 1.6.2 [![Build Status](https://secure.travis-ci.org/mudge/jquery_example.png?branch=master)](http://travis-ci.org/mudge/jquery_example)
 ======================================
 
 This is a jQuery plugin to populate form inputs with example text that
@@ -91,12 +91,12 @@ $('#myform input.name').trigger('example:resetForm');
 Downloading
 -----------
 
-[Download jQuery Example 1.6.1](https://github.com/mudge/jquery_example/zipball/v1.6.1).
+[Download jQuery Example 1.6.2](https://github.com/mudge/jquery_example/zipball/v1.6.2).
 
 Or use [Bower](http://bower.io/):
 
 ```console
-$ bower install pacta
+$ bower install jquery_example
 ```
 
 Testing
